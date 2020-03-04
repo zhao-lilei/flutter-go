@@ -18,8 +18,9 @@
 .metadata
 
 
+
 # IntelliJ related
-*.iml
+
 *.ipr
 *.iws
 .idea/
@@ -33,8 +34,13 @@
 .flutter-plugins
 .packages
 .pub-cache/
+pubspec.lock
 .pub/
 /build/
+
+# goCli related
+go-cli/.packages
+go-cli/pubspec.lock
 
 # Android related
 **/android/**/gradle-wrapper.jar

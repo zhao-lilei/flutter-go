@@ -1,19 +1,18 @@
-/**
- * Created with Android Studio.
- * User: 一晟
- * Date: 2019/4/28
- * Time: 3:20 PM
- * email: zhu.yan@alibaba-inc.com
- * tartget: FlatButton 的示例
- */
+//
+// Created with Android Studio.
+// User: 一晟
+// Date: 2019/4/28
+// Time: 3:20 PM
+// email: zhu.yan@alibaba-inc.com
+// tartget: FlatButton 的示例
+//
 import 'dart:async';
 import 'package:dio/dio.dart';
-import 'dart:convert';
 import 'package:html/parser.dart' show parse;
-import './industry_model.dart';
 import './search_result.dart';
 
 var dio = new Dio();
+
 //class Api2 {
 //  /// 关键字提示（起点）
 //  Future<List<String>> suggestion(String query) async {
@@ -44,9 +43,11 @@ class Api {
 //    http.Response response = await http.get(
 //        "https://www.qidian.com/ajax/Search/AutoComplete?siteid=1&query=$query");
     /// var response = await dio.get("https://www.qidian.com/ajax/Search/AutoComplete?siteid=1&query=$query", data: {});
-    var response = await dio.get("https://www.so.com/s?ie=utf-8&q=$query flutter");
+    var response =
+        await dio.get("https://www.so.com/s?ie=utf-8&q=$query flutter");
     var document = parse(response.data);
     var app = document.querySelectorAll('.res-title a');
+
     ///print('1=====>${query}');
     ///print('2=====>${response.data}');
     ////print('3=====>${app}');
@@ -61,7 +62,7 @@ class Api {
       );
     });
 
-    return Future.delayed(Duration(seconds:2), () {
+    return Future.delayed(Duration(seconds: 2), () {
       return res;
     });
     //return suggestion;

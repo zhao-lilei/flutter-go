@@ -1,5 +1,7 @@
-/// @Author: 一凨 
-/// @Date: 2019-01-08 17:12:58 
+import 'package:fluro/fluro.dart';
+
+/// @Author: 一凨
+/// @Date: 2019-01-08 17:12:58
 /// @Last Modified by: 一凨
 /// @Last Modified time: 2019-01-14 20:13:28
 
@@ -12,8 +14,13 @@ import 'package:flutter_go/routers/routers.dart';
 import 'package:flutter_go/event/event_bus.dart';
 import 'package:flutter_go/event/event_model.dart';
 
+/// import 'package:flutter_go/utils/data_utils.dart';
 
 class CollectionPage extends StatefulWidget {
+  final bool hasLogined;
+
+  CollectionPage({Key key, this.hasLogined}) : super(key: key);
+
   _CollectionPageState createState() => _CollectionPageState();
 }
 
@@ -22,7 +29,8 @@ class _CollectionPageState extends State<CollectionPage> {
     final eventBus = new EventBus();
     ApplicationEvent.event = eventBus;
   }
-  CollectionControlModel _collectionControl = new CollectionControlModel();
+
+  /// CollectionControlModel _collectionControl = new CollectionControlModel();
   List<Collection> _collectionList = [];
   ScrollController _scrollController = new ScrollController();
   var _icons;
@@ -44,16 +52,13 @@ class _CollectionPageState extends State<CollectionPage> {
 
   void _getList() {
     _collectionList.clear();
-    _collectionControl.getAllCollection().then((resultList) {
-      resultList.forEach((item) {
-        _collectionList.add(item);
-      });
-      if (this.mounted) {
-        setState(() {
-          _collectionList = _collectionList;
-        });
-      }
-    });
+    // DataUtils.getAllCollections(context).then((collectionList) {
+    //   if (this.mounted) {
+    //     setState(() {
+    //       _collectionList = collectionList;
+    //     });
+    //   }
+    // });
   }
 
   Widget _renderList(context, index) {
@@ -105,7 +110,8 @@ class _CollectionPageState extends State<CollectionPage> {
           color: Theme.of(context).primaryColor,
         ),
         title: Text(
-          Uri.decodeComponent(_collectionList[index - 1].name),
+          _collectionList[index - 1].name,
+//          Uri.decodeComponent(_collectionList[index - 1].name),
           overflow: TextOverflow.ellipsis,
           style: TextStyle(fontSize: 17.0),
         ),
@@ -114,11 +120,17 @@ class _CollectionPageState extends State<CollectionPage> {
         onTap: () {
           if (_collectionList[index - 1].router.contains('http')) {
             // 注意这里title已经转义过了
-            Application.router.navigateTo(context,
-                '${Routes.webViewPage}?title=${_collectionList[index - 1].name}&url=${Uri.encodeComponent(_collectionList[index - 1].router)}');
+            Application.router.navigateTo(
+              context,
+              '${Routes.webViewPage}?title=${_collectionList[index - 1].name}&url=${Uri.encodeComponent(_collectionList[index - 1].router)}',
+              transition: TransitionType.nativeModal,
+            );
           } else {
-            Application.router
-                .navigateTo(context, "${_collectionList[index - 1].router}");
+            Application.router.navigateTo(
+              context,
+              "${_collectionList[index - 1].router}",
+              transition: TransitionType.nativeModal,
+            );
           }
         },
       ),

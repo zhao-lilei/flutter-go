@@ -16,14 +16,14 @@ class SuggestionBloc extends Bloc<SuggestionEvent, SuggestionState> {
   @override
   SuggestionState get initialState => SuggestionUninitialized();
   @override
-  Stream<SuggestionState> mapEventToState(SuggestionEvent event)async* {
-  //Stream<SuggestionState> mapEventToState(SuggestionState currentState, SuggestionEvent event,) async* {
+  Stream<SuggestionState> mapEventToState(SuggestionEvent event) async* {
+    //Stream<SuggestionState> mapEventToState(SuggestionState currentState, SuggestionEvent event,) async* {
     if (event is SuggestionFetch) {
       //print('event==>${event}');
       try {
         yield SuggestionLoading();
         final res = await api.suggestion(event.query);
-        print('res====>${res}');
+        // print('res====>${res}');
         yield SuggestionLoaded(res: res);
       } catch (_) {
         yield SuggestionError();
